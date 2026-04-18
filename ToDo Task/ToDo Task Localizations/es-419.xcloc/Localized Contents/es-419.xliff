@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="ToDo Task/Localizable.xcstrings" source-language="en" target-language="es-419" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="26.1.1" build-num="17B100"/>
+    </header>
+    <body>
+      <trans-unit id="%lld / %lld Completed" xml:space="preserve">
+        <source>%1$lld / %2$lld Completed</source>
+        <note from="auto-generated">A text displaying the number of completed tasks out of the total number of tasks. The first argument is the count of completed tasks. The second argument is the total count of tasks.</note>
+      </trans-unit>
+      <trans-unit id="%lld%%" xml:space="preserve">
+        <source>%lld%%</source>
+        <note from="auto-generated">A text label showing the percentage of tasks that have been completed.</note>
+      </trans-unit>
+      <trans-unit id="Add Task" xml:space="preserve">
+        <source>Add Task</source>
+        <note from="auto-generated">A button that adds a new task to the list when pressed.</note>
+      </trans-unit>
+      <trans-unit id="Cancel" xml:space="preserve">
+        <source>Cancel</source>
+        <note from="auto-generated">A button that dismisses the view without saving any data.</note>
+      </trans-unit>
+      <trans-unit id="Group Name" xml:space="preserve">
+        <source>Group Name</source>
+        <note from="auto-generated">A section header in the "New Group Creator" view for the input field labeled "Insert the name of your group".</note>
+      </trans-unit>
+      <trans-unit id="Insert the name of your group" xml:space="preserve">
+        <source>Insert the name of your group</source>
+        <note from="auto-generated">A placeholder text for the user to input the name of their task group.</note>
+      </trans-unit>
+      <trans-unit id="New Group Creator" xml:space="preserve">
+        <source>New Group Creator</source>
+        <note from="auto-generated">The title of the view where a user can create a new task group.</note>
+      </trans-unit>
+      <trans-unit id="Save" xml:space="preserve">
+        <source>Save</source>
+        <note from="auto-generated">The text of a button that saves a new task group.</note>
+      </trans-unit>
+      <trans-unit id="Select Icon" xml:space="preserve">
+        <source>Select Icon</source>
+        <note from="auto-generated">A section in the form that allows them to select an icon for their new task group.</note>
+      </trans-unit>
+      <trans-unit id="Select a Group" xml:space="preserve">
+        <source>Select a Group</source>
+        <note from="auto-generated">A message displayed when no task group is selected in the detail view.</note>
+      </trans-unit>
+      <trans-unit id="Task Progress" xml:space="preserve">
+        <source>Task Progress</source>
+        <note from="auto-generated">A label displayed above the progress of the user's tasks.</note>
+      </trans-unit>
+      <trans-unit id="Task Title" xml:space="preserve">
+        <source>Task Title</source>
+        <note from="auto-generated">A placeholder text for a task title field.</note>
+      </trans-unit>
+      <trans-unit id="ToDo APP" xml:space="preserve">
+        <source>ToDo APP</source>
+        <note from="auto-generated">The title of the main navigation bar in the app.</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="ToDo Task/ToDo Task-InfoPlist.xcstrings" source-language="en" target-language="es-419" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="26.1.1" build-num="17B100"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>ToDo Task</source>
+        <note>Bundle name</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,118 @@
+//
+//  TaskGroupDetailView.swift
+//  ToDo Task
+//
+//  Created by fai on 04/17/26.
+//
+
+import SwiftUI
+
+struct TaskGroupDetailView: View {
+    @Binding var groups: TaskGroup
+
+    var body: some View {
+        ScrollView {
+            // Header stats
+            HStack(spacing: 12) {
+                MiniStat(
+                    icon: "checkmark.circle.fill",
+                    value: groups.completedCount,
+                    label: "Done",
+                    color: .green
+                )
+                MiniStat(
+                    icon: "circle",
+                    value: groups.pendingCount,
+                    label: "Pending",
+                    color: groups.accentColor
+                )
+            }
+            .padding(.horizontal)
+            .padding(.top, 8)
+
+            // Task list
+            LazyVStack(spacing: 8) {
+                ForEach($groups.tasks) { $task in
+                    TaskRow(task: $task, color: groups.accentColor)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 8)
+        }
+        .background(Color(.systemGray6).opacity(0.3))
+        .navigationTitle(groups.title)
+        .toolbar {
+            Button {
+                withAnimation {
+                    groups.tasks.append(TaskItem(title: ""))
+                }
+            } label: {
+                Label("Add Task", systemImage: "plus.circle.fill")
+                    .foregroundStyle(groups.accentColor.vivid)
+            }
+        }
+    }
+}
+
+// MARK: - Task Row
+
+struct TaskRow: View {
+    @Binding var task: TaskItem
+    let color: TaskGroupColor
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+                .font(.title3)
+                .foregroundStyle(task.isCompleted ? color.vivid : .gray.opacity(0.4))
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.3)) {
+                        task.isCompleted.toggle()
+                    }
+                }
+
+            TextField("Task Title", text: $task.title)
+                .strikethrough(task.isCompleted)
+                .foregroundStyle(task.isCompleted ? .secondary : .primary)
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(task.isCompleted ? color.light.opacity(0.5) : .white)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .strokeBorder(color.light, lineWidth: 1.5)
+        )
+    }
+}
+
+// MARK: - Mini Stat
+
+struct MiniStat: View {
+    let icon: String
+    let value: Int
+    let label: String
+    let color: TaskGroupColor
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundStyle(color.vivid)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text("\(value)")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .foregroundStyle(color.vivid)
+                Text(label)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(14)
+        .background(color.light)
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+    }
+}
