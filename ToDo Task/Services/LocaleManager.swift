@@ -15,6 +15,7 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
     case english = "en"
     case spanish = "es"
     case portuguese = "pt-BR"
+    case arabic = "ar"
 
     var id: String { rawValue }
 
@@ -23,6 +24,7 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
         case .english:    return "English"
         case .spanish:    return "Español"
         case .portuguese: return "Português"
+        case .arabic:     return "العربية"
         }
     }
 
@@ -31,6 +33,7 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
         case .english:    return "🇺🇸"
         case .spanish:    return "🇪🇸"
         case .portuguese: return "🇧🇷"
+        case .arabic:     return "🇸🇦"
         }
     }
 
@@ -38,11 +41,20 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
         Locale(identifier: rawValue)
     }
 
+    var isRTL: Bool {
+        self == .arabic
+    }
+
+    var layoutDirection: LayoutDirection {
+        isRTL ? .rightToLeft : .leftToRight
+    }
+
     var bannerIcon: String {
         switch self {
         case .english:    return "building.columns.fill"
         case .spanish:    return "sun.max.fill"
         case .portuguese: return "leaf.fill"
+        case .arabic:     return "star.and.crescent.fill"
         }
     }
 
@@ -51,6 +63,7 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
         case .english:    return .blue
         case .spanish:    return .yellow
         case .portuguese: return .green
+        case .arabic:     return .teal
         }
     }
 }

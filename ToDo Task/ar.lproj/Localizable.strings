@@ -1,0 +1,43 @@
+/* Arabic Localizable Strings */
+
+// Navigation
+"app_title" = "تطبيق المهام";
+"select_a_group" = "اختر مجموعة";
+
+// Dashboard Stats
+"completed" = "مكتملة";
+"pending" = "قيد الانتظار";
+"groups" = "المجموعات";
+"total_tasks" = "إجمالي المهام";
+
+// Detail View
+"done" = "منجزة";
+"add_task" = "إضافة مهمة";
+"task_title" = "عنوان المهمة";
+"done_count" = "%d/%d منجزة";
+"group_description" = "لديك %d مهام في هذه المجموعة. حافظ على تقدمك وأنجزها!";
+"mark_all_done" = "إنجاز الكل";
+
+// Date & Time
+"todays_date" = "تاريخ اليوم";
+"current_time" = "الوقت الحالي";
+"date_and_time" = "التاريخ والوقت";
+
+// Number Formatting
+"completion_rate" = "نسبة الإنجاز";
+"total_tasks_count" = "عدد المهام";
+"locale_formats" = "التنسيقات المحلية";
+
+// Language Switcher
+"language" = "اللغة";
+"english" = "الإنجليزية";
+"spanish" = "الإسبانية";
+"portuguese" = "البرتغالية";
+"arabic" = "العربية";
+
+// Welcome
+"welcome_message" = "مرحبًا بك في مهامك!";
+"welcome_subtitle" = "ابقَ منظمًا، وابقَ منتجًا.";
+
+// Localized Images
+"locale_banner_description" = "نظّم يومك، على طريقتك.";

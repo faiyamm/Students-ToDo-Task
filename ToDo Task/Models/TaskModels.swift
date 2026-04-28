@@ -30,7 +30,7 @@ struct TaskGroup: Identifiable, Hashable {
 }
 
 enum TaskGroupColor: String, Hashable, CaseIterable {
-    case green, blue, yellow, purple
+    case green, blue, yellow, purple, teal
 
     var light: Color {
         switch self {
@@ -38,6 +38,7 @@ enum TaskGroupColor: String, Hashable, CaseIterable {
         case .blue:   return Color(.sRGB, red: 0.85, green: 0.92, blue: 1.0)
         case .yellow: return Color(.sRGB, red: 1.0, green: 0.95, blue: 0.85)
         case .purple: return Color(.sRGB, red: 0.91, green: 0.87, blue: 1.0)
+        case .teal:   return Color(.sRGB, red: 0.85, green: 0.95, blue: 0.95)
         }
     }
 
@@ -47,6 +48,7 @@ enum TaskGroupColor: String, Hashable, CaseIterable {
         case .blue:   return Color(.sRGB, red: 0.2, green: 0.5, blue: 0.9)
         case .yellow: return Color(.sRGB, red: 0.85, green: 0.65, blue: 0.15)
         case .purple: return Color(.sRGB, red: 0.5, green: 0.2, blue: 0.9)
+        case .teal:   return Color(.sRGB, red: 0.0, green: 0.6, blue: 0.6)
         }
     }
 }

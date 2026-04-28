@@ -33,6 +33,7 @@
 "english" = "English";
 "spanish" = "Spanish";
 "portuguese" = "Portuguese";
+"arabic" = "Arabic";
 
 // Welcome
 "welcome_message" = "Welcome to your tasks!";

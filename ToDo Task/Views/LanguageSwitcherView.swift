@@ -62,6 +62,7 @@ struct LanguageSwitcherView: View {
         case .english:    return viewModel.localized("english")
         case .spanish:    return viewModel.localized("spanish")
         case .portuguese: return viewModel.localized("portuguese")
+        case .arabic:     return viewModel.localized("arabic")
         }
     }
 }

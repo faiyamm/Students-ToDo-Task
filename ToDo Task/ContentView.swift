@@ -84,10 +84,18 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showLanguageSwitcher) {
                 LanguageSwitcherView(viewModel: vm, isPresented: $showLanguageSwitcher)
+                    .environment(\.layoutDirection, localeManager.currentLanguage.layoutDirection)
                     .presentationDetents([.medium])
                     .presentationDragIndicator(.visible)
             }
-            .background(Color(.systemGray6).opacity(0.5))
+            .background {
+                ZStack {
+                    Color(.systemGray6).opacity(0.5)
+                    if localeManager.currentLanguage == .arabic {
+                        ArabicPatternView()
+                    }
+                }
+            }
         } detail: {
             if let group = selectedGroup {
                 if let index = taskGroups.firstIndex(where: { $0.id == group.id }) {
@@ -111,21 +119,26 @@ struct WelcomeBanner: View {
 
     private var lang: SupportedLanguage { viewModel.currentLanguage }
 
+    private var localeImage: some View {
+        VStack(spacing: 4) {
+            Text(lang.flag)
+                .font(.system(size: 28))
+            Image(systemName: lang.bannerIcon)
+                .font(.title3)
+                .foregroundStyle(lang.bannerColor.vivid)
+        }
+        .frame(width: 52, height: 52)
+        .background(lang.bannerColor.light.opacity(0.6))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
     var body: some View {
         HStack(spacing: 14) {
-            // Locale-specific image
-            VStack(spacing: 4) {
-                Text(lang.flag)
-                    .font(.system(size: 28))
-                Image(systemName: lang.bannerIcon)
-                    .font(.title3)
-                    .foregroundStyle(lang.bannerColor.vivid)
+            if !viewModel.isRTL {
+                localeImage
             }
-            .frame(width: 52, height: 52)
-            .background(lang.bannerColor.light)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: viewModel.horizontalAlignment, spacing: 4) {
                 Text(viewModel.localized("welcome_message"))
                     .font(.system(.title3, design: .rounded, weight: .bold))
                     .foregroundStyle(lang.bannerColor.vivid)
@@ -143,8 +156,12 @@ struct WelcomeBanner: View {
                 }
                 .padding(.top, 1)
             }
+
+            if viewModel.isRTL {
+                localeImage
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: viewModel.isRTL ? .trailing : .leading)
         .padding(14)
         .background(lang.bannerColor.light)
         .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -167,7 +184,7 @@ struct GroupRow: View {
                 .background(group.accentColor.light)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: vm.horizontalAlignment, spacing: 2) {
                 Text(group.title)
                     .fontWeight(.medium)
                 Text(vm.localized("done_count", group.completedCount, group.tasks.count))

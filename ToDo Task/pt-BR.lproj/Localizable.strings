@@ -33,6 +33,7 @@
 "english" = "Inglês";
 "spanish" = "Espanhol";
 "portuguese" = "Português";
+"arabic" = "Árabe";
 
 // Welcome
 "welcome_message" = "Bem-vindo às suas tarefas!";

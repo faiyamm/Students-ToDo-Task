@@ -29,6 +29,18 @@ class LocaleViewModel: ObservableObject {
         localeManager.currentLanguage
     }
 
+    var isRTL: Bool {
+        localeManager.currentLanguage.isRTL
+    }
+
+    var textAlignment: TextAlignment {
+        isRTL ? .trailing : .leading
+    }
+
+    var horizontalAlignment: HorizontalAlignment {
+        isRTL ? .trailing : .leading
+    }
+
     var availableLanguages: [SupportedLanguage] {
         SupportedLanguage.allCases
     }

@@ -15,6 +15,8 @@ struct ToDo_TaskApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(localeManager)
+                .environment(\.layoutDirection, localeManager.currentLanguage.layoutDirection)
+                .animation(.easeInOut(duration: 0.3), value: localeManager.currentLanguage)
         }
     }
 }

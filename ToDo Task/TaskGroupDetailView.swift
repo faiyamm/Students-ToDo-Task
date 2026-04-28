@@ -37,7 +37,8 @@ struct TaskGroupDetailView: View {
             Text(vm.localized("group_description", groups.tasks.count))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(vm.textAlignment)
+                .frame(maxWidth: .infinity, alignment: vm.isRTL ? .trailing : .leading)
                 .padding(.horizontal)
                 .padding(.top, 4)
 
@@ -74,7 +75,14 @@ struct TaskGroupDetailView: View {
                 .padding(.top, 8)
             }
         }
-        .background(Color(.systemGray6).opacity(0.3))
+        .background {
+            ZStack {
+                Color(.systemGray6).opacity(0.3)
+                if localeManager.currentLanguage == .arabic {
+                    ArabicPatternView()
+                }
+            }
+        }
         .navigationTitle(groups.title)
         .toolbar {
             Button {
@@ -92,24 +100,27 @@ struct TaskGroupDetailView: View {
 // MARK: - Task Row
 
 struct TaskRow: View {
+    @Environment(\.layoutDirection) var layoutDirection
     @Binding var task: TaskItem
     let color: TaskGroupColor
     var placeholder: String = "Task Title"
 
+    private var isRTL: Bool { layoutDirection == .rightToLeft }
+
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-                .font(.title3)
-                .foregroundStyle(task.isCompleted ? color.vivid : .gray.opacity(0.4))
-                .onTapGesture {
-                    withAnimation(.spring(response: 0.3)) {
-                        task.isCompleted.toggle()
-                    }
-                }
+            if !isRTL {
+                checkmarkIcon
+            }
 
             TextField(placeholder, text: $task.title)
                 .strikethrough(task.isCompleted)
                 .foregroundStyle(task.isCompleted ? .secondary : .primary)
+                .multilineTextAlignment(isRTL ? .trailing : .leading)
+
+            if isRTL {
+                checkmarkIcon
+            }
         }
         .padding(14)
         .background(
@@ -121,23 +132,37 @@ struct TaskRow: View {
                 .strokeBorder(color.light, lineWidth: 1.5)
         )
     }
+
+    private var checkmarkIcon: some View {
+        Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+            .font(.title3)
+            .foregroundStyle(task.isCompleted ? color.vivid : .gray.opacity(0.4))
+            .onTapGesture {
+                withAnimation(.spring(response: 0.3)) {
+                    task.isCompleted.toggle()
+                }
+            }
+    }
 }
 
 // MARK: - Mini Stat
 
 struct MiniStat: View {
+    @Environment(\.layoutDirection) var layoutDirection
     let icon: String
     let value: Int
     let label: String
     let color: TaskGroupColor
 
+    private var isRTL: Bool { layoutDirection == .rightToLeft }
+
     var body: some View {
         HStack(spacing: 10) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundStyle(color.vivid)
+            if !isRTL {
+                statIcon
+            }
 
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: isRTL ? .trailing : .leading, spacing: 2) {
                 Text("\(value)")
                     .font(.system(.title2, design: .rounded, weight: .bold))
                     .foregroundStyle(color.vivid)
@@ -145,10 +170,20 @@ struct MiniStat: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+
+            if isRTL {
+                statIcon
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: isRTL ? .trailing : .leading)
         .padding(14)
         .background(color.light)
         .clipShape(RoundedRectangle(cornerRadius: 14))
+    }
+
+    private var statIcon: some View {
+        Image(systemName: icon)
+            .font(.title2)
+            .foregroundStyle(color.vivid)
     }
 }
