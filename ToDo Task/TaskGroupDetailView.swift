@@ -33,6 +33,14 @@ struct TaskGroupDetailView: View {
             .padding(.horizontal)
             .padding(.top, 8)
 
+            // Group description
+            Text(vm.localized("group_description", groups.tasks.count))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+                .padding(.top, 4)
+
             // Task list
             LazyVStack(spacing: 8) {
                 ForEach($groups.tasks) { $task in
@@ -41,6 +49,30 @@ struct TaskGroupDetailView: View {
             }
             .padding(.horizontal)
             .padding(.top, 8)
+
+            // Mark All as Done CTA
+            if groups.pendingCount > 0 {
+                Button {
+                    withAnimation(.spring(response: 0.3)) {
+                        for index in groups.tasks.indices {
+                            groups.tasks[index].isCompleted = true
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 8) {
+                        Image(systemName: "checkmark.circle.fill")
+                        Text(vm.localized("mark_all_done"))
+                            .fontWeight(.medium)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(14)
+                    .foregroundStyle(.white)
+                    .background(groups.accentColor.vivid)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+            }
         }
         .background(Color(.systemGray6).opacity(0.3))
         .navigationTitle(groups.title)

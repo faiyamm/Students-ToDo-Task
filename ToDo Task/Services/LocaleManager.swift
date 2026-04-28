@@ -37,6 +37,22 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
     var locale: Locale {
         Locale(identifier: rawValue)
     }
+
+    var bannerIcon: String {
+        switch self {
+        case .english:    return "building.columns.fill"
+        case .spanish:    return "sun.max.fill"
+        case .portuguese: return "leaf.fill"
+        }
+    }
+
+    var bannerColor: TaskGroupColor {
+        switch self {
+        case .english:    return .blue
+        case .spanish:    return .yellow
+        case .portuguese: return .green
+        }
+    }
 }
 
 // MARK: - Locale Manager
@@ -77,6 +93,33 @@ class LocaleManager: ObservableObject {
     func localized(_ key: String, _ args: CVarArg...) -> String {
         let format = localizedBundle.localizedString(forKey: key, value: nil, table: nil)
         return String(format: format, arguments: args)
+    }
+
+    // MARK: - Number Formatting
+
+    func formattedNumber(_ number: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = currentLanguage.locale
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
+    }
+
+    func formattedPercentage(_ value: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = currentLanguage.locale
+        formatter.numberStyle = .percent
+        formatter.minimumFractionDigits = 1
+        formatter.maximumFractionDigits = 1
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
+    }
+
+    func formattedCurrency(_ value: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = currentLanguage.locale
+        formatter.numberStyle = .currency
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
     }
 
     // MARK: - Date Formatting

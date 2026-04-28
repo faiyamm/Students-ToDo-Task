@@ -62,6 +62,13 @@ struct ContentView: View {
                                 .onTapGesture { selectedGroup = group }
                         }
                     }
+
+                    // Locale-specific formats
+                    LocaleFormatsView(
+                        viewModel: vm,
+                        completedTasks: totalCompleted,
+                        totalTasks: totalCompleted + totalPending
+                    )
                 }
                 .padding()
             }
@@ -102,28 +109,44 @@ struct ContentView: View {
 struct WelcomeBanner: View {
     @ObservedObject var viewModel: LocaleViewModel
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(viewModel.localized("welcome_message"))
-                .font(.system(.title3, design: .rounded, weight: .bold))
-                .foregroundStyle(TaskGroupColor.green.vivid)
-            Text(viewModel.localized("welcome_subtitle"))
-                .font(.caption)
-                .foregroundStyle(.secondary)
+    private var lang: SupportedLanguage { viewModel.currentLanguage }
 
-            HStack(spacing: 6) {
-                Image(systemName: "calendar")
-                    .font(.caption)
-                    .foregroundStyle(TaskGroupColor.green.vivid.opacity(0.7))
-                Text(viewModel.todaysDate)
-                    .font(.system(.caption, design: .rounded, weight: .medium))
-                    .foregroundStyle(TaskGroupColor.green.vivid.opacity(0.8))
+    var body: some View {
+        HStack(spacing: 14) {
+            // Locale-specific image
+            VStack(spacing: 4) {
+                Text(lang.flag)
+                    .font(.system(size: 28))
+                Image(systemName: lang.bannerIcon)
+                    .font(.title3)
+                    .foregroundStyle(lang.bannerColor.vivid)
             }
-            .padding(.top, 2)
+            .frame(width: 52, height: 52)
+            .background(lang.bannerColor.light)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(viewModel.localized("welcome_message"))
+                    .font(.system(.title3, design: .rounded, weight: .bold))
+                    .foregroundStyle(lang.bannerColor.vivid)
+                Text(viewModel.localized("locale_banner_description"))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                HStack(spacing: 6) {
+                    Image(systemName: "calendar")
+                        .font(.caption2)
+                        .foregroundStyle(lang.bannerColor.vivid.opacity(0.7))
+                    Text(viewModel.todaysDate)
+                        .font(.system(.caption2, design: .rounded, weight: .medium))
+                        .foregroundStyle(lang.bannerColor.vivid.opacity(0.8))
+                }
+                .padding(.top, 1)
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
-        .background(TaskGroupColor.green.light)
+        .background(lang.bannerColor.light)
         .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 }

@@ -54,6 +54,24 @@ class LocaleViewModel: ObservableObject {
         localeManager.formattedTime()
     }
 
+    // MARK: - Formatted Numbers
+
+    func formattedNumber(_ number: Double) -> String {
+        localeManager.formattedNumber(number)
+    }
+
+    func formattedPercentage(_ value: Double) -> String {
+        localeManager.formattedPercentage(value)
+    }
+
+    func formattedCurrency(_ value: Double) -> String {
+        localeManager.formattedCurrency(value)
+    }
+
+    var formattedDateTime: String {
+        localeManager.formattedDateTime()
+    }
+
     // MARK: - Actions
 
     func switchLanguage(to language: SupportedLanguage) {

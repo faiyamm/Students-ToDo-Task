@@ -15,9 +15,18 @@
 "add_task" = "Add Task";
 "task_title" = "Task Title";
 "done_count" = "%d/%d done";
+"group_description" = "You have %d tasks in this group. Stay on track and check them off!";
+"mark_all_done" = "Mark All as Done";
 
 // Date & Time
 "todays_date" = "Today's Date";
+"current_time" = "Current Time";
+"date_and_time" = "Date & Time";
+
+// Number Formatting
+"completion_rate" = "Completion Rate";
+"total_tasks_count" = "Total Tasks Count";
+"locale_formats" = "Locale Formats";
 
 // Language Switcher
 "language" = "Language";
@@ -28,3 +37,6 @@
 // Welcome
 "welcome_message" = "Welcome to your tasks!";
 "welcome_subtitle" = "Stay organized, stay productive.";
+
+// Localized Images
+"locale_banner_description" = "Organize your day, your way.";

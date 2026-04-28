@@ -15,9 +15,18 @@
 "add_task" = "Adicionar Tarefa";
 "task_title" = "Título da Tarefa";
 "done_count" = "%d/%d feitas";
+"group_description" = "Você tem %d tarefas neste grupo. Mantenha o ritmo e conclua todas!";
+"mark_all_done" = "Marcar Tudo como Feito";
 
 // Date & Time
 "todays_date" = "Data de Hoje";
+"current_time" = "Hora Atual";
+"date_and_time" = "Data e Hora";
+
+// Number Formatting
+"completion_rate" = "Taxa de Conclusão";
+"total_tasks_count" = "Total de Tarefas";
+"locale_formats" = "Formatos Regionais";
 
 // Language Switcher
 "language" = "Idioma";
@@ -28,3 +37,6 @@
 // Welcome
 "welcome_message" = "Bem-vindo às suas tarefas!";
 "welcome_subtitle" = "Mantenha-se organizado, mantenha-se produtivo.";
+
+// Localized Images
+"locale_banner_description" = "Organize o seu dia, do seu jeito.";
