@@ -8,22 +8,25 @@
 import SwiftUI
 
 struct TaskGroupDetailView: View {
+    @EnvironmentObject var localeManager: LocaleManager
     @Binding var groups: TaskGroup
 
     var body: some View {
+        let vm = LocaleViewModel(localeManager: localeManager)
+
         ScrollView {
             // Header stats
             HStack(spacing: 12) {
                 MiniStat(
                     icon: "checkmark.circle.fill",
                     value: groups.completedCount,
-                    label: "Done",
+                    label: vm.localized("done"),
                     color: .green
                 )
                 MiniStat(
                     icon: "circle",
                     value: groups.pendingCount,
-                    label: "Pending",
+                    label: vm.localized("pending"),
                     color: groups.accentColor
                 )
             }
@@ -33,7 +36,7 @@ struct TaskGroupDetailView: View {
             // Task list
             LazyVStack(spacing: 8) {
                 ForEach($groups.tasks) { $task in
-                    TaskRow(task: $task, color: groups.accentColor)
+                    TaskRow(task: $task, color: groups.accentColor, placeholder: vm.localized("task_title"))
                 }
             }
             .padding(.horizontal)
@@ -47,7 +50,7 @@ struct TaskGroupDetailView: View {
                     groups.tasks.append(TaskItem(title: ""))
                 }
             } label: {
-                Label("Add Task", systemImage: "plus.circle.fill")
+                Label(vm.localized("add_task"), systemImage: "plus.circle.fill")
                     .foregroundStyle(groups.accentColor.vivid)
             }
         }
@@ -59,6 +62,7 @@ struct TaskGroupDetailView: View {
 struct TaskRow: View {
     @Binding var task: TaskItem
     let color: TaskGroupColor
+    var placeholder: String = "Task Title"
 
     var body: some View {
         HStack(spacing: 12) {
@@ -71,7 +75,7 @@ struct TaskRow: View {
                     }
                 }
 
-            TextField("Task Title", text: $task.title)
+            TextField(placeholder, text: $task.title)
                 .strikethrough(task.isCompleted)
                 .foregroundStyle(task.isCompleted ? .secondary : .primary)
         }

@@ -1,0 +1,30 @@
+/* Spanish Localizable Strings */
+
+// Navigation
+"app_title" = "Aplicación ToDo";
+"select_a_group" = "Selecciona un Grupo";
+
+// Dashboard Stats
+"completed" = "Completadas";
+"pending" = "Pendientes";
+"groups" = "Grupos";
+"total_tasks" = "Total de Tareas";
+
+// Detail View
+"done" = "Hechas";
+"add_task" = "Agregar Tarea";
+"task_title" = "Título de Tarea";
+"done_count" = "%d/%d hechas";
+
+// Date & Time
+"todays_date" = "Fecha de Hoy";
+
+// Language Switcher
+"language" = "Idioma";
+"english" = "Inglés";
+"spanish" = "Español";
+"portuguese" = "Portugués";
+
+// Welcome
+"welcome_message" = "¡Bienvenido a tus tareas!";
+"welcome_subtitle" = "Mantente organizado, mantente productivo.";

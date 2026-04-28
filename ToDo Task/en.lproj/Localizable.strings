@@ -1,0 +1,30 @@
+/* English Localizable Strings */
+
+// Navigation
+"app_title" = "ToDo App";
+"select_a_group" = "Select a Group";
+
+// Dashboard Stats
+"completed" = "Completed";
+"pending" = "Pending";
+"groups" = "Groups";
+"total_tasks" = "Total Tasks";
+
+// Detail View
+"done" = "Done";
+"add_task" = "Add Task";
+"task_title" = "Task Title";
+"done_count" = "%d/%d done";
+
+// Date & Time
+"todays_date" = "Today's Date";
+
+// Language Switcher
+"language" = "Language";
+"english" = "English";
+"spanish" = "Spanish";
+"portuguese" = "Portuguese";
+
+// Welcome
+"welcome_message" = "Welcome to your tasks!";
+"welcome_subtitle" = "Stay organized, stay productive.";

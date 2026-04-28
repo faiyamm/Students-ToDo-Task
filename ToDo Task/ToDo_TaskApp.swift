@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ToDo_TaskApp: App {
+    @StateObject private var localeManager = LocaleManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(localeManager)
         }
     }
 }
