@@ -41,6 +41,7 @@ struct TaskGroupDetailView: View {
                 .frame(maxWidth: .infinity, alignment: vm.isRTL ? .trailing : .leading)
                 .padding(.horizontal)
                 .padding(.top, 4)
+                .accessibilityIdentifier("Group_description_text")
 
             // Task list
             LazyVStack(spacing: 8) {
@@ -71,6 +72,7 @@ struct TaskGroupDetailView: View {
                     .background(groups.accentColor.vivid)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
+                .accessibilityIdentifier("Mark_all_done_button")
                 .padding(.horizontal)
                 .padding(.top, 8)
             }

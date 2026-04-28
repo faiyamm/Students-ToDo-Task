@@ -81,6 +81,7 @@ struct ContentView: View {
                         .font(.body.weight(.medium))
                         .foregroundStyle(TaskGroupColor.blue.vivid)
                 }
+                .accessibilityIdentifier("Language_switcher_button")
             }
             .sheet(isPresented: $showLanguageSwitcher) {
                 LanguageSwitcherView(viewModel: vm, isPresented: $showLanguageSwitcher)
@@ -142,9 +143,11 @@ struct WelcomeBanner: View {
                 Text(viewModel.localized("welcome_message"))
                     .font(.system(.title3, design: .rounded, weight: .bold))
                     .foregroundStyle(lang.bannerColor.vivid)
+                    .accessibilityIdentifier("Welcome_text_title")
                 Text(viewModel.localized("locale_banner_description"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                    .accessibilityIdentifier("Welcome_text_subtitle")
 
                 HStack(spacing: 6) {
                     Image(systemName: "calendar")
@@ -229,9 +232,11 @@ struct StatCard: View {
             Text(value)
                 .font(.system(size: 28, weight: .bold, design: .rounded))
                 .foregroundStyle(color.vivid)
+                .accessibilityIdentifier("StatCard_value_\(label)")
             Text(label)
                 .font(.caption)
                 .foregroundStyle(.secondary)
+                .accessibilityIdentifier("StatCard_label_\(label)")
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 16)
