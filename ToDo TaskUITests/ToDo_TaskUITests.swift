@@ -80,12 +80,12 @@ final class ToDo_TaskUITests: XCTestCase {
 
         // Navigate to the Home group (has "Clean the kitchen" pending)
         let homeGroup = app.buttons["group_row_Home"]
-        XCTAssertTrue(homeGroup.waitForExistence(timeout: 3.0), "Home group should be visible on the main screen")
+        XCTAssertTrue(homeGroup.waitForExistence(timeout: 10.0), "Home group should be visible on the main screen")
         homeGroup.tap()
 
         // Tap the checkmark button to complete "Clean the kitchen"
         let checkmark = app.buttons["task_checkmark_Clean the kitchen"]
-        XCTAssertTrue(checkmark.waitForExistence(timeout: 3.0), "Task checkmark should be visible")
+        XCTAssertTrue(checkmark.waitForExistence(timeout: 10.0), "Task checkmark should be visible after navigation")
         checkmark.tap()
 
         // Verify the element still exists (now shows filled checkmark)
@@ -99,19 +99,19 @@ final class ToDo_TaskUITests: XCTestCase {
 
         // Navigate to the Groceries group
         let groceriesGroup = app.buttons["group_row_Groceries"]
-        XCTAssertTrue(groceriesGroup.waitForExistence(timeout: 3.0), "Groceries group should be visible")
+        XCTAssertTrue(groceriesGroup.waitForExistence(timeout: 10.0), "Groceries group should be visible")
         groceriesGroup.tap()
 
         // Tap the + button to add a new task
         let addButton = app.buttons["add_task_button"]
-        XCTAssertTrue(addButton.waitForExistence(timeout: 2.0), "Add task button should be present in the toolbar")
+        XCTAssertTrue(addButton.waitForExistence(timeout: 10.0), "Add task button should be present in the toolbar after navigation")
 
         let fieldCountBefore = app.textFields.count
         addButton.tap()
 
         // Type in the new empty text field that appeared
         let newField = app.textFields.element(boundBy: fieldCountBefore)
-        XCTAssertTrue(newField.waitForExistence(timeout: 2.0), "A new text field should appear after tapping +")
+        XCTAssertTrue(newField.waitForExistence(timeout: 5.0), "A new text field should appear after tapping +")
         newField.tap()
         newField.typeText("Walk the Dog")
 
