@@ -58,8 +58,13 @@ struct ContentView: View {
                     // Group list
                     VStack(spacing: 8) {
                         ForEach(taskGroups) { group in
-                            GroupRow(group: group, isSelected: selectedGroup?.id == group.id, vm: vm)
-                                .onTapGesture { selectedGroup = group }
+                            Button {
+                                selectedGroup = group
+                            } label: {
+                                GroupRow(group: group, isSelected: selectedGroup?.id == group.id, vm: vm)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityIdentifier("group_row_\(group.title)")
                         }
                     }
 

@@ -89,12 +89,23 @@ struct TaskGroupDetailView: View {
         .toolbar {
             Button {
                 withAnimation {
+                    groups.sortByPriority()
+                }
+            } label: {
+                Label("Sort by priority", systemImage: "arrow.up.arrow.down.circle.fill")
+                    .foregroundStyle(groups.accentColor.vivid)
+            }
+            .accessibilityIdentifier("Sort_by_priority_button")
+
+            Button {
+                withAnimation {
                     groups.tasks.append(TaskItem(title: ""))
                 }
             } label: {
                 Label(vm.localized("add_task"), systemImage: "plus.circle.fill")
                     .foregroundStyle(groups.accentColor.vivid)
             }
+            .accessibilityIdentifier("add_task_button")
         }
     }
 }
@@ -120,6 +131,8 @@ struct TaskRow: View {
                 .foregroundStyle(task.isCompleted ? .secondary : .primary)
                 .multilineTextAlignment(isRTL ? .trailing : .leading)
 
+            priorityMenu
+
             if isRTL {
                 checkmarkIcon
             }
@@ -135,15 +148,44 @@ struct TaskRow: View {
         )
     }
 
-    private var checkmarkIcon: some View {
-        Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
-            .font(.title3)
-            .foregroundStyle(task.isCompleted ? color.vivid : .gray.opacity(0.4))
-            .onTapGesture {
-                withAnimation(.spring(response: 0.3)) {
-                    task.isCompleted.toggle()
+    private var priorityMenu: some View {
+        Menu {
+            ForEach(TaskPriority.allCases, id: \.self) { priority in
+                Button {
+                    task.priority = priority
+                } label: {
+                    Label(priority.label, systemImage: priority.symbolName)
                 }
             }
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: task.priority.symbolName)
+                    .font(.caption.weight(.bold))
+                Text(task.priority.label)
+                    .font(.caption.weight(.semibold))
+            }
+            .foregroundStyle(task.priority.color)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(
+                Capsule().fill(task.priority.color.opacity(0.15))
+            )
+        }
+        .accessibilityIdentifier("Priority_menu")
+    }
+
+    private var checkmarkIcon: some View {
+        Button {
+            withAnimation(.spring(response: 0.3)) {
+                task.isCompleted.toggle()
+            }
+        } label: {
+            Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+                .font(.title3)
+                .foregroundStyle(task.isCompleted ? color.vivid : .gray.opacity(0.4))
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("task_checkmark_\(task.title)")
     }
 }
 

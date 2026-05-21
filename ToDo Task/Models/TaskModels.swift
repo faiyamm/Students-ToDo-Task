@@ -8,10 +8,43 @@
 import Foundation
 import SwiftUI
 
+enum TaskPriority: Int, Hashable, CaseIterable, Comparable {
+    case high = 0, medium = 1, low = 2
+
+    var label: String {
+        switch self {
+        case .high:   return "High"
+        case .medium: return "Medium"
+        case .low:    return "Low"
+        }
+    }
+
+    var symbolName: String {
+        switch self {
+        case .high:   return "exclamationmark.3"
+        case .medium: return "equal"
+        case .low:    return "arrow.down"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .high:   return Color(.sRGB, red: 0.9, green: 0.25, blue: 0.25)
+        case .medium: return Color(.sRGB, red: 0.95, green: 0.6, blue: 0.15)
+        case .low:    return Color(.sRGB, red: 0.4, green: 0.6, blue: 0.85)
+        }
+    }
+
+    static func < (lhs: TaskPriority, rhs: TaskPriority) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+}
+
 struct TaskItem: Identifiable, Hashable {
     let id = UUID()
     var title: String
     var isCompleted: Bool = false
+    var priority: TaskPriority = .medium
 }
 
 struct TaskGroup: Identifiable, Hashable {
@@ -26,6 +59,10 @@ struct TaskGroup: Identifiable, Hashable {
     }
     var pendingCount: Int {
         tasks.count - completedCount
+    }
+
+    mutating func sortByPriority() {
+        tasks.sort { $0.priority < $1.priority }
     }
 }
 
@@ -58,24 +95,24 @@ enum TaskGroupColor: String, Hashable, CaseIterable {
 extension TaskGroup {
     static let sampleData: [TaskGroup] = [
         TaskGroup(title: "Groceries", symbolName: "storefront.circle.fill", tasks: [
-            TaskItem(title: "Buy Apples"),
-            TaskItem(title: "Buy Milk")
+            TaskItem(title: "Buy Apples", priority: .low),
+            TaskItem(title: "Buy Milk", priority: .medium)
         ], accentColor: .green),
 
         TaskGroup(title: "Home", symbolName: "house.fill", tasks: [
-            TaskItem(title: "Walk the dog", isCompleted: true),
-            TaskItem(title: "Clean the kitchen")
+            TaskItem(title: "Walk the dog", isCompleted: true, priority: .high),
+            TaskItem(title: "Clean the kitchen", priority: .medium)
         ], accentColor: .blue),
 
         TaskGroup(title: "Work", symbolName: "briefcase.fill", tasks: [
-            TaskItem(title: "Finish report", isCompleted: true),
-            TaskItem(title: "Email team"),
-            TaskItem(title: "Review PR")
+            TaskItem(title: "Finish report", isCompleted: true, priority: .high),
+            TaskItem(title: "Email team", priority: .low),
+            TaskItem(title: "Review PR", priority: .medium)
         ], accentColor: .purple),
 
         TaskGroup(title: "Personal", symbolName: "person.fill", tasks: [
-            TaskItem(title: "Read chapter 5"),
-            TaskItem(title: "Workout", isCompleted: true)
+            TaskItem(title: "Read chapter 5", priority: .low),
+            TaskItem(title: "Workout", isCompleted: true, priority: .medium)
         ], accentColor: .yellow)
     ]
 }
